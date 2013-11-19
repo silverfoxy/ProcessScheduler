@@ -12,7 +12,7 @@ namespace ProcessScheduler
     {
         static void Main(string[] args)
         {
-            Console.Clear();
+            //Console.Clear();
             Arguments CommandLine = new Arguments(args);
             string fileName;
             if (CommandLine["i"] != null)
