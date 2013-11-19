@@ -1,0 +1,5 @@
+c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe
+c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.pdb
+c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.csprojResolveAssemblyReference.cache
+c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.exe
+c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.pdb
