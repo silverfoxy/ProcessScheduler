@@ -89,6 +89,31 @@ namespace ProcessScheduler
                     Console.WriteLine(String.Format("{0,-17} {1}", item.StartTime, item.Pid.ToString()));
                 }*/
             }
+            else if (method.ToLower() == "spn")
+            {
+                double quantum = 1;
+                try
+                {
+                    if (CommandLine["q"] != null)
+                        quantum = double.Parse(CommandLine["q"]);
+                    else if (CommandLine["quantum"] != null)
+                        quantum = double.Parse(CommandLine["quantum"]);
+                    else
+                    {
+                        ShowHelp_MissingQTime();
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("[ERROR] quantum time not in correct format");
+                    return;
+                }
+                ShortestProcessNext spn = new ShortestProcessNext(pList, quantum);
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "ShortestProcessNext", quantum.ToString()));
+
+                Console.Write(spn.ViewLog());
+            }
             else
             {
                 Console.WriteLine("Unknown method");
@@ -107,8 +132,8 @@ namespace ProcessScheduler
 
         static void ShowAlgorithms()
         {
-            Console.WriteLine("\n\r\t/a, -a, --algorithm [fifo|rr/roundrobin]");
-            Console.WriteLine("\n\r\tRoundRobin Options:");
+            Console.WriteLine("\n\r\t/a, -a, --algorithm [fifo|rr/roundrobin|spn]");
+            Console.WriteLine("\n\r\tRoundRobin/ShortestProcessNext Options:");
             Console.WriteLine("\n\r\t\t/q -q --quantum (in seconds)");
         }
 

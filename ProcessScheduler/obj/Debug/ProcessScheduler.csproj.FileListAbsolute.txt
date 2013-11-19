@@ -3,3 +3,8 @@ c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessSch
 c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.csprojResolveAssemblyReference.cache
 c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.exe
 c:\users\babak\documents\visual studio 2012\Projects\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.pdb
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.exe
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.pdb
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.pdb
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.csprojResolveAssemblyReference.cache

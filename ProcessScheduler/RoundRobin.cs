@@ -34,7 +34,7 @@ namespace ProcessScheduler
                 log.Log(currentTime, currentProcess.Pid.ToString(), currentProcess.SpentTime, (currentProcess.ServiceTime >= currentProcess.SpentTime) ? (currentProcess.ServiceTime - currentProcess.SpentTime) : TimeSpan.FromSeconds(0));
                 currentTime += spenttime;
                 if (currentProcess.SpentTime >= currentProcess.ServiceTime)
-                    currentProcess.EndTime = currentProcess.StartTime + currentProcess.ServiceTime;
+                    currentProcess.EndTime = currentProcess.StartTime + currentProcess.SpentTime;
                 else
                     pQueue.Enqueue(currentProcess);
             }
