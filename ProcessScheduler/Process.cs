@@ -61,7 +61,7 @@ namespace ProcessScheduler
         }
 
         /// <summary>
-        /// Constructor
+        /// Initiates a Process object
         /// </summary>
         public Process(int Pid, TimeSpan ArrivalTime, TimeSpan ServiceTime, int Priority)
         {
@@ -73,6 +73,10 @@ namespace ProcessScheduler
             _Started = false;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns process info in a single line string</returns>
         public string Info()
         {
             return string.Format("pid: {0} arrival time: {1} service time: {2} priority: {3}", Pid, ArrivalTime, ServiceTime, Priority);

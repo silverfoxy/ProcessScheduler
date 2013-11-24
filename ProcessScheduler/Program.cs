@@ -10,20 +10,45 @@ namespace ProcessScheduler
 {
     class Program
     {
+        static bool CLEAR_CONSOLE = false;
+        static bool DEBUG_MODE = false;
+        static double DEBUG_QTIME = 0.8;
+        static bool DEBUG_SHOW_PROCESS_LIST = true;
+        static Algorithm DEBUG_ALGORITHM = Algorithm.FIFO;
+
+        enum Algorithm
+        { 
+            SPN,
+            FIFO,
+            RR
+        };
+
         static void Main(string[] args)
         {
-            //Console.Clear();
-            Arguments CommandLine = new Arguments(args);
+            if (CLEAR_CONSOLE)
+                Console.Clear();
+
+            #region Parse Commandline Args
             string fileName;
-            if (CommandLine["i"] != null)
-                fileName = CommandLine["i"];
-            else if (CommandLine["input"] != null)
-                fileName = CommandLine["input"];
+            Arguments CommandLine = new Arguments(args);
+
+            if (DEBUG_MODE)
+            {
+                fileName = "ProcessList.txt";
+            }
             else
             {
-                ShowHelp();
-                return;
+                if (CommandLine["i"] != null)
+                    fileName = CommandLine["i"];
+                else if (CommandLine["input"] != null)
+                    fileName = CommandLine["input"];
+                else
+                {
+                    ShowHelp();
+                    return;
+                }
             }
+
 
             List<Process> pList;
             try
@@ -35,7 +60,7 @@ namespace ProcessScheduler
                 Console.WriteLine(string.Format("Failed to read from {0}.", fileName));
                 return;
             }
-            if (CommandLine["s"] != null || CommandLine["showprocesslist"] != null)
+            if (CommandLine["s"] != null || CommandLine["showprocesslist"] != null || DEBUG_SHOW_PROCESS_LIST)
             {
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "Text File"));
                 foreach (var item in pList)
@@ -49,17 +74,17 @@ namespace ProcessScheduler
                 method = CommandLine["a"];
             else if (CommandLine["algorithm"] != null)
                 method = CommandLine["algorithm"];
-            else
+            else if (!DEBUG_MODE)
             {
                 return;
             }
-            if (method.ToLower() == "fifo")
+            if (method.ToLower() == "fifo" || DEBUG_ALGORITHM == Algorithm.FIFO)
             {
                 FIFO f = new FIFO(pList);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "FIFO"));
                 Console.Write(f.ViewLog());
             }
-            else if (method.ToLower() == "rr" || method.ToLower() == "roundrobin")
+            else if (method.ToLower() == "rr" || method.ToLower() == "roundrobin" || DEBUG_ALGORITHM == Algorithm.RR)
             {
                 double quantum = 1;
                 try
@@ -68,6 +93,8 @@ namespace ProcessScheduler
                         quantum = double.Parse(CommandLine["q"]);
                     else if (CommandLine["quantum"] != null)
                         quantum = double.Parse(CommandLine["quantum"]);
+                    else if (DEBUG_MODE)
+                        quantum = DEBUG_QTIME;
                     else
                     {
                         ShowHelp_MissingQTime();
@@ -83,13 +110,8 @@ namespace ProcessScheduler
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "RoundRobin", quantum.ToString()));
 
                 Console.Write(rr.ViewLog());
-                //RoundRobin r = new RoundRobin(pList, q);
-                /*foreach (Process item in f)
-                {
-                    Console.WriteLine(String.Format("{0,-17} {1}", item.StartTime, item.Pid.ToString()));
-                }*/
             }
-            else if (method.ToLower() == "spn")
+            else if (method.ToLower() == "spn" || DEBUG_ALGORITHM == Algorithm.SPN)
             {
                 double quantum = 1;
                 try
@@ -98,6 +120,8 @@ namespace ProcessScheduler
                         quantum = double.Parse(CommandLine["q"]);
                     else if (CommandLine["quantum"] != null)
                         quantum = double.Parse(CommandLine["quantum"]);
+                    else if (DEBUG_MODE)
+                        quantum = DEBUG_QTIME;
                     else
                     {
                         ShowHelp_MissingQTime();
@@ -120,6 +144,7 @@ namespace ProcessScheduler
                 ShowAlgorithms();
                 return;
             }
+            #endregion
         }
 
         static void ShowHelp()

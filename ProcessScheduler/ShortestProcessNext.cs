@@ -11,6 +11,11 @@ namespace ProcessScheduler
         SortedDictionary<TimeSpan, Process> arrivedPList;
         Logger log;
 
+        /// <summary>
+        /// initiates the object and runs the scheduler on given processes.
+        /// </summary>
+        /// <param name="pList">List of processes</Process></param>
+        /// <param name="quantumTime">represented in seconds</param>
         public ShortestProcessNext(List<Process> pList, double quantumTime)
         {
             this.pList = pList.OrderBy(o => o.ArrivalTime).ToList();
@@ -53,11 +58,10 @@ namespace ProcessScheduler
             }
         }
 
-        /*public void Add(Process p)
-        {
-            pList.Add(p);
-        }*/
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns the result of running this algorithm.</returns>
         public string ViewLog()
         {
             return log.GetLog();

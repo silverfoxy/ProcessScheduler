@@ -11,6 +11,11 @@ namespace ProcessScheduler
         Queue<Process> pQueue;
         Logger log;
 
+        /// <summary>
+        /// initiates the object and runs the scheduler on given processes.
+        /// </summary>
+        /// <param name="pList">List of processes</Process></param>
+        /// <param name="quantumTime">represented in seconds</param>
         public RoundRobin(List<Process> pList, double quantumTime)
         {
             log = new Logger();
@@ -40,11 +45,10 @@ namespace ProcessScheduler
             }
         }
 
-        /*public void Add(Process p)
-        {
-            pList.Add(p);
-        }*/
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns the result of running this algorithm.</returns>
         public string ViewLog()
         {
             return log.GetLog();
