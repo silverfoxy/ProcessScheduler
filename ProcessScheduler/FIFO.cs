@@ -17,7 +17,7 @@ namespace ProcessScheduler
         public FIFO(List<Process> pList)
         {
             this.pList = pList.OrderBy(o => o.ArrivalTime).ToList();
-            TimeSpan currentTime = this.pList[0].ArrivalTime;
+            TimeSpan currentTime = TimeSpan.FromSeconds(0);
             log = new Logger();
             foreach (Process p in this.pList)
             {
@@ -28,9 +28,11 @@ namespace ProcessScheduler
                 p.Started = true;
                 p.StartTime = currentTime;                
                 currentTime += p.ServiceTime;
-                p.SpentTime = currentTime;
+                p.SpentTime = p.ServiceTime;
                 p.EndTime = currentTime;
-                log.Log(currentTime, p.Pid.ToString(), p.SpentTime, p.ServiceTime - p.SpentTime);
+                log.Log(currentTime, p.Pid.ToString(), p.SpentTime,p.ServiceTime-p.SpentTime);
+                p.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
+                Console.WriteLine(p.CompleteInfo() + "\n");
             }
         }
 

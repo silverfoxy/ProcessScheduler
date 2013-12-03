@@ -8,3 +8,10 @@ C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\obj\Debug\Proc
 C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe
 C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.pdb
 C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.csprojResolveAssemblyReference.cache
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe.config
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe.config
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.exe
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\obj\Debug\ProcessScheduler.pdb
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.pdb
+C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\obj\Debug\ResolveAssemblyReference.cache

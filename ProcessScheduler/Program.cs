@@ -11,8 +11,8 @@ namespace ProcessScheduler
     class Program
     {
         static bool CLEAR_CONSOLE = false;
-        static bool DEBUG_MODE = false;
-        static double DEBUG_QTIME = 0.8;
+        static bool DEBUG_MODE = true;
+        static double DEBUG_QTIME = 0.05;
         static bool DEBUG_SHOW_PROCESS_LIST = true;
         static Algorithm DEBUG_ALGORITHM = Algorithm.FIFO;
 
@@ -25,12 +25,15 @@ namespace ProcessScheduler
 
         static void Main(string[] args)
         {
+            
             if (CLEAR_CONSOLE)
                 Console.Clear();
 
             #region Parse Commandline Args
             string fileName;
             Arguments CommandLine = new Arguments(args);
+
+                
 
             if (DEBUG_MODE)
             {
@@ -54,6 +57,7 @@ namespace ProcessScheduler
             try
             {
                 pList = ReadFromFile(fileName);
+             
             }
             catch (Exception)
             {
@@ -83,6 +87,10 @@ namespace ProcessScheduler
                 FIFO f = new FIFO(pList);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "FIFO"));
                 Console.Write(f.ViewLog());
+                //*****************view AVerage Waiting & TurnAround*********
+                Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
+                Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
+                //********************
             }
             else if (method.ToLower() == "rr" || method.ToLower() == "roundrobin" || DEBUG_ALGORITHM == Algorithm.RR)
             {
@@ -94,12 +102,16 @@ namespace ProcessScheduler
                     else if (CommandLine["quantum"] != null)
                         quantum = double.Parse(CommandLine["quantum"]);
                     else if (DEBUG_MODE)
+                    {
                         quantum = DEBUG_QTIME;
+                       
+                    }
                     else
                     {
                         ShowHelp_MissingQTime();
                         return;
                     }
+                    
                 }
                 catch (Exception)
                 {
@@ -108,8 +120,12 @@ namespace ProcessScheduler
                 }
                 RoundRobin rr = new RoundRobin(pList, quantum);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "RoundRobin", quantum.ToString()));
-
+                //**************************viewLog
                 Console.Write(rr.ViewLog());
+                //*****************view AVerage Waiting & TurnAround*********
+                Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
+                Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
+                //********************
             }
             else if (method.ToLower() == "spn" || DEBUG_ALGORITHM == Algorithm.SPN)
             {
@@ -143,8 +159,18 @@ namespace ProcessScheduler
                 Console.WriteLine("Unknown method");
                 ShowAlgorithms();
                 return;
+                
             }
+            
+            
             #endregion
+            
+             
+            
+            if (DEBUG_MODE)
+                Console.ReadLine();
+            
+
         }
 
         static void ShowHelp()
@@ -213,6 +239,30 @@ namespace ProcessScheduler
             {
                 throw ex;
             }
+           
         }
+
+        static TimeSpan CalculateAverageWaitingTime(List<Process> processlist)
+        {
+            TimeSpan totalwaitingTime=TimeSpan.FromSeconds(0.0) ;
+            foreach (Process p in processlist)
+            {
+                totalwaitingTime += p.WaitingTime;
+            }
+            TimeSpan AverageWaitingTime ;
+            return  AverageWaitingTime = new TimeSpan(totalwaitingTime.Ticks / processlist.Count);
+        }
+
+        static TimeSpan CalculateAverageTurnaroundTime(List<Process> processlist)
+        {
+            TimeSpan totalTurnaroundTime = TimeSpan.FromSeconds(0.0);
+            foreach (Process p in processlist)
+            {
+                totalTurnaroundTime += p.TurnaroundTime;
+            }
+            TimeSpan AverageTurnaroundTime;
+            return AverageTurnaroundTime = new TimeSpan(totalTurnaroundTime.Ticks / processlist.Count);
+        }
+
     }
 }

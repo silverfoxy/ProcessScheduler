@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="ProcessScheduler.FIFO">
+    <Position X="12.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAACAAAAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>FIFO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProcessScheduler.Logger">
+    <Position X="0.5" Y="4" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProcessScheduler.Process">
+    <Position X="6.75" Y="2.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAEAAAAAAAAEAQACMAQAIAMwJAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Process.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProcessScheduler.Program">
+    <Position X="0.5" Y="0.5" Width="3" />
+    <NestedTypes>
+      <Enum Name="ProcessScheduler.Program.Algorithm" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Program.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQCEAAAAAAABQAAAAAAAAAAACAAAAACAAQABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProcessScheduler.RoundRobin">
+    <Position X="8.25" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAACAAIAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>RoundRobin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProcessScheduler.ShortestProcessNext">
+    <Position X="3.75" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAACAAEAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>ShortestProcessNext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

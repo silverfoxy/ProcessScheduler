@@ -13,6 +13,10 @@ namespace ProcessScheduler
         TimeSpan _StartTime;
         TimeSpan _EndTime;
         TimeSpan _SpentTime;
+        TimeSpan _TurnaroundTime;
+        TimeSpan _WaitingTime;
+        double _NormalWaiting;
+        double _NormalTurnaround;
         int _Priority;
         bool _Started;
 
@@ -49,6 +53,27 @@ namespace ProcessScheduler
             set { _SpentTime = value; }
         }
 
+        public TimeSpan TurnaroundTime
+        {
+            get { return _TurnaroundTime; }
+            set { _TurnaroundTime = value; }
+        }
+        public TimeSpan WaitingTime
+        {
+            get { return _WaitingTime; }
+            set { _WaitingTime = value; }
+        }
+
+        public double NormalWaiting
+        {
+            get { return _NormalWaiting; }
+            set { _NormalWaiting = value; }
+        }
+        public double NormalTurnaround
+        {
+            get { return _NormalTurnaround; }
+            set { _NormalTurnaround  = value; }
+        }
         public int Priority
         {
             get { return _Priority; }
@@ -70,9 +95,24 @@ namespace ProcessScheduler
             _ServiceTime = ServiceTime;
             _Priority = Priority;
             _SpentTime = TimeSpan.FromSeconds(0);
+            _WaitingTime = TimeSpan.FromSeconds(0);
+            _TurnaroundTime = TimeSpan.FromSeconds(0);
+            _NormalTurnaround = 0;
+            _NormalWaiting = 0;
             _Started = false;
         }
 
+        public void CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime(){
+            TurnaroundTime = EndTime - ArrivalTime;
+            WaitingTime = TurnaroundTime - ServiceTime;
+            
+            double waitT = ((double) WaitingTime.Milliseconds/  ServiceTime.Milliseconds);
+            NormalWaiting = waitT;
+            
+            double turnaroundT = ((double)TurnaroundTime.Ticks / ServiceTime.Ticks);
+            NormalTurnaround= turnaroundT;
+
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -80,6 +120,11 @@ namespace ProcessScheduler
         public string Info()
         {
             return string.Format("pid: {0} arrival time: {1} service time: {2} priority: {3}", Pid, ArrivalTime, ServiceTime, Priority);
+        }
+        public string CompleteInfo()
+        {
+            return string.Format("*************  process {0}  ************* \narrival time: {1}\nservice time: {2} \nstart time : {3} \nend time: {4} \nturnAround time: {5} \nwaiting time: {6}\nnormal WaitingTime : {7} \nnormal TurnaroundTime: {8} ", Pid, ArrivalTime, ServiceTime,StartTime,EndTime,TurnaroundTime,WaitingTime,NormalWaiting,NormalTurnaround);
+           
         }
     }
 }

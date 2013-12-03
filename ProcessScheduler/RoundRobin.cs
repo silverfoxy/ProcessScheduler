@@ -25,23 +25,42 @@ namespace ProcessScheduler
             {
                 pQueue.Enqueue(p);
             }
-            TimeSpan currentTime = this.pList[0].ArrivalTime;
+            TimeSpan currentTime = TimeSpan.FromSeconds(0) ;
             while (pQueue.Count > 0)
             {
                 Process currentProcess = pQueue.Dequeue();
                 if (!currentProcess.Started)
                 {
+                    if (currentTime < currentProcess.ArrivalTime)
+                    {
+                        currentTime = currentProcess.ArrivalTime;
+                    }
                     currentProcess.StartTime = currentTime;
                     currentProcess.Started = true;
                 }
-                TimeSpan spenttime = TimeSpan.FromSeconds(quantumTime);
-                currentProcess.SpentTime += spenttime;
-                log.Log(currentTime, currentProcess.Pid.ToString(), currentProcess.SpentTime, (currentProcess.ServiceTime >= currentProcess.SpentTime) ? (currentProcess.ServiceTime - currentProcess.SpentTime) : TimeSpan.FromSeconds(0));
-                currentTime += spenttime;
-                if (currentProcess.SpentTime >= currentProcess.ServiceTime)
-                    currentProcess.EndTime = currentProcess.StartTime + currentProcess.SpentTime;
-                else
+                ///<summary> 
+                /// we assume two states if remaining time > quantum time or else
+                /// <summary>
+                if (currentProcess.ServiceTime - currentProcess.SpentTime > TimeSpan.FromSeconds(quantumTime))
+                {
+                    TimeSpan spenttime = TimeSpan.FromSeconds(quantumTime);
+                    currentProcess.SpentTime += spenttime;
+                    log.Log(currentTime, currentProcess.Pid.ToString(), currentProcess.SpentTime,currentProcess.ServiceTime - currentProcess.SpentTime);
+                    currentTime += spenttime;
                     pQueue.Enqueue(currentProcess);
+                }
+
+                else if (currentProcess.ServiceTime - currentProcess.SpentTime >= TimeSpan.FromSeconds(0.0))
+                {
+                    TimeSpan spenttime = currentProcess.ServiceTime - currentProcess.SpentTime;
+                    currentProcess.SpentTime += spenttime;
+                    log.Log(currentTime, currentProcess.Pid.ToString(), currentProcess.SpentTime, TimeSpan.FromSeconds(0));
+                    currentTime += spenttime;
+                    currentProcess.EndTime = currentTime;
+                    currentProcess.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
+                    Console.WriteLine(currentProcess.CompleteInfo()+"\n");
+                    
+                }
             }
         }
 
