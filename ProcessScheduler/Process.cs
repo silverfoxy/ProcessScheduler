@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ProcessScheduler
+namespace ProcessScheduler 
 {
-    class Process
+    class Process : IComparable<Process>
     {
         int _Pid;
         TimeSpan _ArrivalTime;
@@ -17,7 +17,7 @@ namespace ProcessScheduler
         TimeSpan _WaitingTime;
         double _NormalWaiting;
         double _NormalTurnaround;
-        int _Priority;
+        double _Priority;
         bool _Started;
 
         public int Pid 
@@ -28,6 +28,13 @@ namespace ProcessScheduler
         public TimeSpan ArrivalTime
         {
             get { return _ArrivalTime; }
+        }
+
+        public int CompareTo(Process other)
+        {
+            if (this.Priority > other.Priority) return -1;
+            else if (this.Priority < other.Priority) return 1;
+            else return 0;
         }
 
         public TimeSpan ServiceTime
@@ -74,9 +81,10 @@ namespace ProcessScheduler
             get { return _NormalTurnaround; }
             set { _NormalTurnaround  = value; }
         }
-        public int Priority
+        public double Priority
         {
             get { return _Priority; }
+            set { _Priority = value; }
         }
 
         public bool Started
