@@ -14,7 +14,7 @@ namespace ProcessScheduler
         static bool DEBUG_MODE = true;
         static double DEBUG_QTIME = 0.5;
         static bool DEBUG_SHOW_PROCESS_LIST = true;
-        static Algorithm DEBUG_ALGORITHM = Algorithm.Lottery;
+        static Algorithm DEBUG_ALGORITHM = Algorithm.CFS;
 
         enum Algorithm
         { 
@@ -24,7 +24,9 @@ namespace ProcessScheduler
             Priority,
             SRT,
             HRR,
-            Lottery
+            Lottery,
+            MLFQ,
+            CFS
         };
 
         static void Main(string[] args)
@@ -159,6 +161,76 @@ namespace ProcessScheduler
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "RoundRobin", quantum.ToString()));
                 //**************************viewLog
                 Console.Write(l.ViewLog());
+                //*****************view AVerage Waiting & TurnAround*********
+                Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
+                Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
+                //********************
+            }
+            else if (method.ToLower() == "mlfq" || DEBUG_ALGORITHM == Algorithm.MLFQ)
+            {
+                double quantum = 1;
+                try
+                {
+                    if (CommandLine["q"] != null)
+                        quantum = double.Parse(CommandLine["q"]);
+                    else if (CommandLine["quantum"] != null)
+                        quantum = double.Parse(CommandLine["quantum"]);
+                    else if (DEBUG_MODE)
+                    {
+                        quantum = DEBUG_QTIME;
+
+                    }
+                    else
+                    {
+                        ShowHelp_MissingQTime();
+                        return;
+                    }
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("[ERROR] quantum time not in correct format");
+                    return;
+                }
+                FeedbackMultiQueue mlfq = new FeedbackMultiQueue(pList, quantum);
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "Multilevel Feedback Queue", quantum.ToString()));
+                //**************************viewLog
+                Console.Write(mlfq.ViewLog());
+                //*****************view AVerage Waiting & TurnAround*********
+                Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
+                Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
+                //********************
+            }
+            else if (method.ToLower() == "cfs" || DEBUG_ALGORITHM == Algorithm.CFS)
+            {
+                double quantum = 1;
+                try
+                {
+                    if (CommandLine["q"] != null)
+                        quantum = double.Parse(CommandLine["q"]);
+                    else if (CommandLine["quantum"] != null)
+                        quantum = double.Parse(CommandLine["quantum"]);
+                    else if (DEBUG_MODE)
+                    {
+                        quantum = DEBUG_QTIME;
+
+                    }
+                    else
+                    {
+                        ShowHelp_MissingQTime();
+                        return;
+                    }
+
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("[ERROR] quantum time not in correct format");
+                    return;
+                }
+                CFS cfs = new CFS(pList, quantum);
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "Completely Fair Scheduler", quantum.ToString()));
+                //**************************viewLog
+                Console.Write(cfs.ViewLog());
                 //*****************view AVerage Waiting & TurnAround*********
                 Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
                 Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");

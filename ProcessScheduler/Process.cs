@@ -110,7 +110,8 @@ namespace ProcessScheduler
             _Started = false;
         }
 
-        public void CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime(){
+        public void CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime()
+        {
             TurnaroundTime = EndTime - ArrivalTime;
             WaitingTime = TurnaroundTime - ServiceTime;
             
