@@ -27,7 +27,8 @@ namespace ProcessScheduler
 
                 for (int i = 0; i < this.pList.Count; i++)
                 {
-                    this.pList[i].Priority = 1 + (currentTime - this.pList[i].ArrivalTime).TotalMilliseconds;
+                    if (this.pList[i].ArrivalTime < currentTime)
+                        this.pList[i].Priority = 1 + (currentTime - this.pList[i].ArrivalTime).TotalMilliseconds;
                 }
 
                 TimeSpan spenttime = TimeSpan.FromSeconds(refreshTime);
