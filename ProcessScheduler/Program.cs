@@ -12,9 +12,9 @@ namespace ProcessScheduler
     {
         static bool CLEAR_CONSOLE = false;
         static bool DEBUG_MODE = true;
-        static double DEBUG_QTIME = 0.05;
+        static double DEBUG_QTIME = 0.5;
         static bool DEBUG_SHOW_PROCESS_LIST = true;
-        static Algorithm DEBUG_ALGORITHM = Algorithm.HRR;
+        static Algorithm DEBUG_ALGORITHM = Algorithm.Lottery;
 
         enum Algorithm
         { 
@@ -23,7 +23,8 @@ namespace ProcessScheduler
             RR,
             Priority,
             SRT,
-            HRR
+            HRR,
+            Lottery
         };
 
         static void Main(string[] args)
@@ -31,12 +32,10 @@ namespace ProcessScheduler
             
             if (CLEAR_CONSOLE)
                 Console.Clear();
-
+            Console.WindowWidth = 100;
             #region Parse Commandline Args
             string fileName;
             Arguments CommandLine = new Arguments(args);
-
-                
 
             if (DEBUG_MODE)
             {
@@ -107,14 +106,14 @@ namespace ProcessScheduler
                     else if (DEBUG_MODE)
                     {
                         quantum = DEBUG_QTIME;
-                       
+
                     }
                     else
                     {
                         ShowHelp_MissingQTime();
                         return;
                     }
-                    
+
                 }
                 catch (Exception)
                 {
@@ -130,7 +129,7 @@ namespace ProcessScheduler
                 Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
                 //********************
             }
-            else if (method.ToLower() == "hrr" || DEBUG_ALGORITHM == Algorithm.HRR)
+            else if (method.ToLower() == "lottery" || DEBUG_ALGORITHM == Algorithm.Lottery)
             {
                 double quantum = 1;
                 try
@@ -140,20 +139,35 @@ namespace ProcessScheduler
                     else if (CommandLine["quantum"] != null)
                         quantum = double.Parse(CommandLine["quantum"]);
                     else if (DEBUG_MODE)
+                    {
                         quantum = DEBUG_QTIME;
+
+                    }
                     else
                     {
                         ShowHelp_MissingQTime();
                         return;
                     }
+
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("[ERROR] quantum time not in correct format");
                     return;
                 }
+                Lottery l = new Lottery(pList, quantum);
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "RoundRobin", quantum.ToString()));
+                //**************************viewLog
+                Console.Write(l.ViewLog());
+                //*****************view AVerage Waiting & TurnAround*********
+                Console.WriteLine("Average Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
+                Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
+                //********************
+            }
+            else if (method.ToLower() == "hrr" || DEBUG_ALGORITHM == Algorithm.HRR)
+            {
                 HRR hrr = new HRR(pList);
-                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "Highest Response Ratio", quantum.ToString()));
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "Highest Response Ratio"));
                 Console.Write(hrr.ViewLog());
                 //*****************view AVerage Waiting & TurnAround*********
                 Console.WriteLine("\nAverage Waiting Time :  " + CalculateAverageWaitingTime(pList) + "\n");
@@ -161,8 +175,7 @@ namespace ProcessScheduler
                 //*********************
 
             }
-                ///////////////////
-            if (method.ToLower() == "priority" || DEBUG_ALGORITHM == Algorithm.Priority)
+            else if (method.ToLower() == "priority" || DEBUG_ALGORITHM == Algorithm.Priority)
             {
                 Priority p = new Priority(pList);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "Priority Algorithm"));
@@ -172,8 +185,7 @@ namespace ProcessScheduler
                 Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
                 //*********************
             }
-                ///////////////////
-            if (method.ToLower() == "spn" || DEBUG_ALGORITHM == Algorithm.SPN)
+            else if (method.ToLower() == "spn" || DEBUG_ALGORITHM == Algorithm.SPN)
             {
                 SPN spn = new SPN(pList);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "SPN Algorithm"));
@@ -183,8 +195,7 @@ namespace ProcessScheduler
                 Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
                 //*********************
             }
-                ///////////////////
-            if (method.ToLower() == "srt" || DEBUG_ALGORITHM == Algorithm.SRT)
+            else if (method.ToLower() == "srt" || DEBUG_ALGORITHM == Algorithm.SRT)
             {
                 SRT srt = new SRT(pList);
                 Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\n", "SRT Algorithm"));
@@ -194,8 +205,6 @@ namespace ProcessScheduler
                 Console.WriteLine("Average TurnAround Time : " + CalculateAverageTurnaroundTime(pList) + "\n");
                 //*********************
             }
-                ///////////////////
-
             else
             {
                 Console.WriteLine("Unknown method");

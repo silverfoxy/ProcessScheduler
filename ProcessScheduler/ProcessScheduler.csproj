@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />
+    <Compile Include="Lottery.cs" />
     <Compile Include="SPN.cs" />
     <Compile Include="Priority.cs" />
     <Compile Include="FIFO.cs" />
