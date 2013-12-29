@@ -76,7 +76,7 @@ namespace ProcessScheduler
                     currentProcess.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
                 }
                 log.Log(currentTime, currentProcess.Pid.ToString(), currentProcess.SpentTime, currentProcess.ServiceTime - currentProcess.SpentTime, currentProcess.Priority);
-                Console.WriteLine(currentProcess.CompleteInfo() + "\n");
+                //Console.WriteLine(currentProcess.CompleteInfo() + "\n");
             }
         }
     

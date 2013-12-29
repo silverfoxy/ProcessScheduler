@@ -52,7 +52,7 @@ namespace ProcessScheduler
                 currentProcess.EndTime = currentTime;
                 currentProcess.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
                 log.Log(currentProcess.StartTime, currentProcess.Pid.ToString(), currentProcess.SpentTime, currentProcess.ServiceTime - currentProcess.SpentTime, currentProcess.Priority);
-                Console.WriteLine(currentProcess.CompleteInfo() + "\n");
+                //Console.WriteLine(currentProcess.CompleteInfo() + "\n");
                 foreach (Process p in this.pList)
                 {
                     if (p.ArrivalTime < currentTime)

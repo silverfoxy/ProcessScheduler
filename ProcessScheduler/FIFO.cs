@@ -32,7 +32,7 @@ namespace ProcessScheduler
                 p.EndTime = currentTime;
                 log.Log(currentTime, p.Pid.ToString(), p.SpentTime,p.ServiceTime-p.SpentTime);
                 p.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
-                Console.WriteLine(p.CompleteInfo() + "\n");
+                //Console.WriteLine(p.CompleteInfo() + "\n");
             }
         }
 

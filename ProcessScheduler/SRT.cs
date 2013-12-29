@@ -86,7 +86,7 @@ namespace ProcessScheduler
                         diffTime -= ProcessByPriority[0].ServiceTime - ProcessByPriority[0].SpentTime;
                         log.Log(currentTime, ProcessByPriority[0].Pid.ToString(), ProcessByPriority[0].SpentTime, TimeSpan.FromSeconds(0));
                         ProcessByPriority[0].CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
-                        Console.WriteLine(ProcessByPriority[0].CompleteInfo() + "\n");
+                       // Console.WriteLine(ProcessByPriority[0].CompleteInfo() + "\n");
                         ProcessByPriority.Remove(ProcessByPriority[0]);
                     }
                     

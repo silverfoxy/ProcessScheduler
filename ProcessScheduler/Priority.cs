@@ -50,7 +50,7 @@ namespace ProcessScheduler
                  pp.EndTime = currentTime;
                  log.Log(currentTime, pp.Pid.ToString(), pp.SpentTime, pp.ServiceTime - pp.SpentTime);
                  pp.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
-                 Console.WriteLine(pp.CompleteInfo() + "\n");
+                 //Console.WriteLine(pp.CompleteInfo() + "\n");
              }
            
         }

@@ -58,7 +58,7 @@ namespace ProcessScheduler
                     currentTime += spenttime;
                     currentProcess.EndTime = currentTime;
                     currentProcess.CalculateWaitingAndTurnaroundTimeAndNormalTurnaroundTimeAndNormalWaitingTime();
-                    Console.WriteLine(currentProcess.CompleteInfo()+"\n");
+                    //Console.WriteLine(currentProcess.CompleteInfo()+"\n");
                     
                 }
             }

@@ -15,3 +15,4 @@ C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\obj\De
 C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.exe
 C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\bin\Debug\ProcessScheduler.pdb
 C:\Users\Elisa\Desktop\ProcessScheduler\ProcessScheduler\ProcessScheduler\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Babak\Documents\GitHub\ProcessScheduler\ProcessScheduler\bin\Debug\RedBlackCS.dll
