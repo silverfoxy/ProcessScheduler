@@ -12,9 +12,9 @@ namespace ProcessScheduler
     {
         static bool CLEAR_CONSOLE = false;
         static bool DEBUG_MODE = false;
-        static double DEBUG_QTIME = 0.5;
+        static double DEBUG_QTIME = 0.03;
         static bool DEBUG_SHOW_PROCESS_LIST = true;
-        static Algorithm DEBUG_ALGORITHM = Algorithm.FIFO;
+        static Algorithm DEBUG_ALGORITHM = Algorithm.Lottery;
 
         enum Algorithm
         { 
@@ -171,7 +171,7 @@ namespace ProcessScheduler
                 {
                     Console.WriteLine(item.CompleteInfo() + "\n");
                 }
-                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "RoundRobin", quantum.ToString()));
+                Console.WriteLine(string.Format("{0," + Console.WindowWidth / 2 + "}\r\nQuantum Time: {1} Second(s)\r\n", "Lottery", quantum.ToString()));
                 //**************************viewLog
                 Console.Write(l.ViewLog());
                 //*****************view AVerage Waiting & TurnAround*********

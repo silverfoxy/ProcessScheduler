@@ -46,7 +46,7 @@ namespace ProcessScheduler
                 }
                 else
                 {
-                    nextTime =TimeSpan.FromMilliseconds( 1000000);
+                    nextTime =TimeSpan.FromMilliseconds(1000000);
                 }
                 //set a remaining time and  sort by remaining time minimum remingin time= first
                 foreach (Process p in ProcessByPriority)

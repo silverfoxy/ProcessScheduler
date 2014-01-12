@@ -46,7 +46,14 @@ namespace ProcessScheduler
                 }
                 foreach (int item in toBeRemoved)
                 {
-                    this.pList.RemoveAt(item);
+                    try
+                    {
+                        this.pList.RemoveAt(item);
+                    }
+                    catch (Exception)
+                    {
+                        
+                    }
                 }
                 foreach (Process p in availList)
                 {
